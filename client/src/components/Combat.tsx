@@ -82,7 +82,10 @@ export default function Combat() {
   }, [currentEncounter?.combatLog]);
 
   const loadEncounters = async () => {
-    if (!currentCampaign) return;
+    if (!currentCampaign) {
+      setLoading(false);
+      return;
+    }
     try {
       const data = await apiCall<Encounter[]>(`/combat/campaign/${currentCampaign}`);
       setEncounters(data);

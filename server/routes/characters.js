@@ -127,16 +127,38 @@ router.post('/', (req, res) => {
       'Wizard': 6
     };
 
+    // Racial stat bonuses
+    const raceBonuses = {
+      'Dragonborn': { strength: 2, charisma: 1 },
+      'Dwarf': { constitution: 2, wisdom: 1 },
+      'Elf': { dexterity: 2, intelligence: 1 },
+      'Gnome': { intelligence: 2, dexterity: 1 },
+      'Half-Elf': { charisma: 2, constitution: 1 },
+      'Halfling': { dexterity: 2, charisma: 1 },
+      'Half-Orc': { strength: 2, constitution: 1 },
+      'Human': { strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1 },
+      'Tiefling': { charisma: 2, intelligence: 1 }
+    };
+
+    // Apply racial bonuses if race exists
+    const bonuses = raceBonuses[race] || {};
+    const adjustedStrength = (strength || 10) + (bonuses.strength || 0);
+    const adjustedDexterity = (dexterity || 10) + (bonuses.dexterity || 0);
+    const adjustedConstitution = (constitution || 10) + (bonuses.constitution || 0);
+    const adjustedIntelligence = (intelligence || 10) + (bonuses.intelligence || 0);
+    const adjustedWisdom = (wisdom || 10) + (bonuses.wisdom || 0);
+    const adjustedCharisma = (charisma || 10) + (bonuses.charisma || 0);
+
     const baseHP = classHP[charClass] || 8;
-    const conMod = Math.floor((constitution - 10) / 2);
+    const conMod = Math.floor((adjustedConstitution - 10) / 2);
     const maxHP = baseHP + conMod;
 
     // Calculate AC
     let ac = 10;
     if (charClass === 'Monk') {
-      ac = 10 + conMod + Math.floor((dexterity - 10) / 2);
+      ac = 10 + conMod + Math.floor((adjustedDexterity - 10) / 2);
     } else if (charClass === 'Barbarian') {
-      ac = 10 + conMod + Math.floor((dexterity - 10) / 2);
+      ac = 10 + conMod + Math.floor((adjustedDexterity - 10) / 2);
     }
 
     const result = db.prepare(`
@@ -144,11 +166,11 @@ router.post('/', (req, res) => {
         user_id, name, race, class, background, level,
         strength, dexterity, constitution, intelligence, wisdom, charisma,
         hp, max_hp, ac
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       userId, name, race, charClass, background || null, level || 1,
-      strength || 10, dexterity || 10, constitution || 10, 
-      intelligence || 10, wisdom || 10, charisma || 10,
+      adjustedStrength, adjustedDexterity, adjustedConstitution, 
+      adjustedIntelligence, adjustedWisdom, adjustedCharisma,
       maxHP, maxHP, ac
     );
 

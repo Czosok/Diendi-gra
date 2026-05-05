@@ -48,7 +48,10 @@ export default function WorldMap() {
   }, [currentCampaign]);
 
   const loadMap = async () => {
-    if (!currentCampaign) return;
+    if (!currentCampaign) {
+      setLoading(false);
+      return;
+    }
     try {
       // Load regions
       const regions = await apiCall<MapRegion[]>(`/maps/regions/${currentCampaign}`);
