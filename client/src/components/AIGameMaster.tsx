@@ -23,6 +23,14 @@ interface Message {
   timestamp: Date;
 }
 
+interface GMContext {
+  sessionLength?: number;
+  npcs?: number;
+  heroes?: number;
+  location?: string;
+  activeEncounters?: number;
+}
+
 export default function AIGameMaster() {
   const { t } = useTranslation();
   const { currentCampaign } = useGameStore();
@@ -33,6 +41,8 @@ export default function AIGameMaster() {
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'gm' | 'npc'>('gm');
   const [selectedNpc, setSelectedNpc] = useState<number | null>(null);
+  const [gmContext, setGmContext] = useState<GMContext | null>(null);
+  const [playerPos, setPlayerPos] = useState({ x: 16, y: 12 });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -101,6 +111,9 @@ export default function AIGameMaster() {
           timestamp: new Date()
         };
         setMessages(prev => [...prev, gmMessage]);
+        if (response.context) {
+          setGmContext(response.context);
+        }
       } else if (selectedNpc) {
         response = await apiCall<{ response: string }>('/ai/npc', {
           method: 'POST',
@@ -212,6 +225,32 @@ export default function AIGameMaster() {
           {t('ai.talk')}
         </button>
       </div>
+
+      {/* Game Context Bar */}
+      {currentCampaign && gmContext && (
+        <div className="card" style={{ marginBottom: '20px', padding: '10px' }}>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.85rem' }}>
+            <div>
+              <span style={{ color: 'var(--gb-light)' }}>📍 Location:</span>{' '}
+              <strong>{gmContext.location || 'Unknown'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--gb-light)' }}>🧙 Heroes:</span>{' '}
+              <strong>{gmContext.heroes || 0}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--gb-light)' }}>⚔️ Encounters:</span>{' '}
+              <strong style={{ color: gmContext.activeEncounters ? '#ff6b6b' : 'inherit' }}>
+                {gmContext.activeEncounters || 0} active
+              </strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--gb-light)' }}>📍 Position:</span>{' '}
+              <strong>({playerPos.x}, {playerPos.y})</strong>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* NPC Selection */}
       {mode === 'npc' && (

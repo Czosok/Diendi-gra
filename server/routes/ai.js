@@ -45,6 +45,45 @@ function getGameVariables(campaignId) {
   }, {});
 }
 
+// Helper: Get campaign characters (heroes)
+function getCampaignCharacters(campaignId) {
+  return db.prepare(`
+    SELECT c.name, c.race, c.class, c.level, c.hp, c.max_hp, c.ac, c.x, c.y
+    FROM characters c
+    WHERE c.campaign_id = ?
+  `).all(campaignId);
+}
+
+// Helper: Get current map location
+function getCurrentLocation(campaignId) {
+  const loc = db.prepare(`
+    SELECT ml.name, ml.type, ml.description
+    FROM map_locations ml
+    JOIN campaign_players cp ON cp.campaign_id = ?
+    WHERE ml.x = COALESCE((SELECT value FROM game_variables WHERE campaign_id = ? AND key = 'player_x'), 16)
+      AND ml.y = COALESCE((SELECT value FROM game_variables WHERE campaign_id = ? AND key = 'player_y'), 16)
+    LIMIT 1
+  `).get(campaignId, campaignId, campaignId);
+  
+  if (loc) return loc;
+  
+  // Return default region if no specific location
+  return db.prepare(`
+    SELECT name, 'region' as type, description
+    FROM map_regions WHERE campaign_id = ?
+    LIMIT 1
+  `).get(campaignId);
+}
+
+// Helper: Get active encounters
+function getActiveEncounters(campaignId) {
+  return db.prepare(`
+    SELECT ce.id, ce.name, ce.status, ce.current_round
+    FROM combat_encounters ce
+    WHERE ce.campaign_id = ? AND ce.status = 'active'
+  `).all(campaignId);
+}
+
 // LM Studio API call (OpenAI-compatible)
 async function callLMStudio(prompt, model = DEFAULT_MODEL, system = null) {
   try {
@@ -157,10 +196,13 @@ router.post('/gm', async (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' });
     }
 
-    // Get session context
+    // Get all context data
     const sessionHistory = getSessionContext(campaignId, 15);
     const npcs = getNPCContext(campaignId);
     const gameVars = getGameVariables(campaignId);
+    const heroes = getCampaignCharacters(campaignId);
+    const currentLocation = getCurrentLocation(campaignId);
+    const activeEncounters = getActiveEncounters(campaignId);
 
     // Build system prompt
     let systemPrompt = `You are the Game Master for a D&D 5e campaign.
@@ -177,6 +219,30 @@ Your role is to:
 5. Be creative, descriptive, and engaging
 
 Keep responses appropriate to the situation - brief for combat, detailed for exploration, characterful for social encounters.`;
+
+    // Add heroes (party members)
+    if (heroes.length > 0) {
+      systemPrompt += '\n\nParty Heroes:\n';
+      heroes.forEach(h => {
+        systemPrompt += `- ${h.name}: Level ${h.level} ${h.race} ${h.class} (HP: ${h.hp}/${h.max_hp}, AC: ${h.ac})\n`;
+      });
+    }
+
+    // Add current location
+    if (currentLocation) {
+      systemPrompt += `\nCurrent Location: ${currentLocation.name} (${currentLocation.type || 'area'})\n`;
+      if (currentLocation.description) {
+        systemPrompt += `Description: ${currentLocation.description}\n`;
+      }
+    }
+
+    // Add active encounters
+    if (activeEncounters.length > 0) {
+      systemPrompt += '\nActive Encounters:\n';
+      activeEncounters.forEach(e => {
+        systemPrompt += `- ${e.name} (Round ${e.current_round}, Status: ${e.status})\n`;
+      });
+    }
 
     // Add recent history context
     if (sessionHistory.length > 0) {
@@ -221,7 +287,13 @@ Keep responses appropriate to the situation - brief for combat, detailed for exp
 
     res.json({
       gm: response,
-      context: { sessionLength: sessionHistory.length, npcs: npcs.length }
+      context: { 
+        sessionLength: sessionHistory.length, 
+        npcs: npcs.length,
+        heroes: heroes.length,
+        location: currentLocation?.name || 'Unknown',
+        activeEncounters: activeEncounters.length
+      }
     });
   } catch (error) {
     console.error('GM AI error:', error);
