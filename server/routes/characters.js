@@ -140,14 +140,21 @@ router.post('/', (req, res) => {
       'Tiefling': { charisma: 2, intelligence: 1 }
     };
 
-    // Apply racial bonuses if race exists
+    // Apply racial bonuses on top of base 10 if not provided
+    const baseStr = 10;
+    const baseDex = 10;
+    const baseCon = 10;
+    const baseInt = 10;
+    const baseWis = 10;
+    const baseCha = 10;
+    
     const bonuses = raceBonuses[race] || {};
-    const adjustedStrength = (strength || 10) + (bonuses.strength || 0);
-    const adjustedDexterity = (dexterity || 10) + (bonuses.dexterity || 0);
-    const adjustedConstitution = (constitution || 10) + (bonuses.constitution || 0);
-    const adjustedIntelligence = (intelligence || 10) + (bonuses.intelligence || 0);
-    const adjustedWisdom = (wisdom || 10) + (bonuses.wisdom || 0);
-    const adjustedCharisma = (charisma || 10) + (bonuses.charisma || 0);
+    const adjustedStrength = baseStr + (bonuses.strength || 0);
+    const adjustedDexterity = baseDex + (bonuses.dexterity || 0);
+    const adjustedConstitution = baseCon + (bonuses.constitution || 0);
+    const adjustedIntelligence = baseInt + (bonuses.intelligence || 0);
+    const adjustedWisdom = baseWis + (bonuses.wisdom || 0);
+    const adjustedCharisma = baseCha + (bonuses.charisma || 0);
 
     const baseHP = classHP[charClass] || 8;
     const conMod = Math.floor((adjustedConstitution - 10) / 2);
