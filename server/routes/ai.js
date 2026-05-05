@@ -3,8 +3,9 @@ const db = require('../db/database');
 
 const router = express.Router();
 
-const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
-const DEFAULT_MODEL = process.env.OLLAMA_MODEL || 'llama3.2:7b';
+// LM Studio uses OpenAI-compatible API on port 1234
+const LM_STUDIO_URL = process.env.LM_STUDIO_URL || 'http://localhost:1234/v1';
+const DEFAULT_MODEL = process.env.LLM_MODEL || 'llama3.2:7b';
 
 // Helper: Get recent session history for RAG context
 function getSessionContext(campaignId, limit = 10) {
@@ -44,46 +45,47 @@ function getGameVariables(campaignId) {
   }, {});
 }
 
-// Ollama API call
-async function callOllama(prompt, model = DEFAULT_MODEL, system = null) {
+// LM Studio API call (OpenAI-compatible)
+async function callLMStudio(prompt, model = DEFAULT_MODEL, system = null) {
   try {
-    const body = {
-      model,
-      prompt,
-      stream: false
-    };
-    
+    const messages = [];
     if (system) {
-      body.system = system;
+      messages.push({ role: 'system', content: system });
     }
+    messages.push({ role: 'user', content: prompt });
 
-    const response = await fetch(`${OLLAMA_URL}/api/generate`, {
+    const response = await fetch(`${LM_STUDIO_URL}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature: 0.7,
+        max_tokens: 500
+      })
     });
 
     if (!response.ok) {
-      throw new Error(`Ollama error: ${response.status}`);
+      throw new Error(`LM Studio error: ${response.status}`);
     }
 
     const data = await response.json();
-    return data.response;
+    return data.choices[0]?.message?.content || '';
   } catch (error) {
-    console.error('Ollama call error:', error);
+    console.error('LM Studio call error:', error);
     return null;
   }
 }
 
-// Check Ollama status
+// Check LM Studio status
 router.get('/status', async (req, res) => {
   try {
-    const response = await fetch(`${OLLAMA_URL}/api/tags`);
+    const response = await fetch(`${LM_STUDIO_URL}/models`);
     if (response.ok) {
       const data = await response.json();
       res.json({ 
         status: 'online', 
-        models: data.models,
+        models: data.data,
         defaultModel: DEFAULT_MODEL 
       });
     } else {
@@ -124,7 +126,7 @@ router.post('/npc', async (req, res) => {
 
     context += `\n\nPlayer: ${message}\n\n${npc.name}:`;
 
-    const response = await callOllama(context);
+    const response = await callLMStudio(context);
 
     // Save to session history
     if (campaignId) {
@@ -209,7 +211,7 @@ Keep responses appropriate to the situation - brief for combat, detailed for exp
       userPrompt = `Player action: ${action}\n\nProvide your response as the Game Master:`;
     }
 
-    const response = await callOllama(userPrompt, DEFAULT_MODEL, systemPrompt);
+    const response = await callLMStudio(userPrompt, DEFAULT_MODEL, systemPrompt);
 
     // Save to session history
     db.prepare(`
@@ -247,7 +249,7 @@ Consider:
 Output format (JSON array):
 [{"name": "Goblin", "cr": "1/4", "quantity": 3}, ...]`;
 
-    const response = await callOllama(userPrompt, DEFAULT_MODEL, systemPrompt);
+    const response = await callLMStudio(userPrompt, DEFAULT_MODEL, systemPrompt);
 
     try {
       const monsters = JSON.parse(response);
