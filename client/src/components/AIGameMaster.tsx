@@ -25,7 +25,7 @@ interface Message {
 
 export default function AIGameMaster() {
   const { t } = useTranslation();
-  const { user, currentCampaign } = useGameStore();
+  const { currentCampaign } = useGameStore();
   const [ollamaStatus, setOllamaStatus] = useState<OllamaStatus | null>(null);
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);

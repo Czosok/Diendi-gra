@@ -60,7 +60,12 @@ export default function CharacterCreate() {
           class: formData.class,
           background: formData.background,
           level: formData.level,
-          ...formData
+          strength: formData.strength,
+          dexterity: formData.dexterity,
+          constitution: formData.constitution,
+          intelligence: formData.intelligence,
+          wisdom: formData.wisdom,
+          charisma: formData.charisma
         })
       });
 
@@ -167,16 +172,16 @@ export default function CharacterCreate() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <button 
                     className="btn"
-                    onClick={() => updateStat(stat, formData[stat as keyof typeof formData] as number - 1)}
-                    disabled={formData[stat as keyof typeof formData] <= 8}
+                    onClick={() => updateStat(stat, (formData[stat as keyof typeof formData] as number) - 1)}
+                    disabled={(formData[stat as keyof typeof formData] as number) <= 8}
                   >
                     -
                   </button>
                   <span style={{ width: '30px', textAlign: 'center' }}>{formData[stat as keyof typeof formData]}</span>
                   <button 
                     className="btn"
-                    onClick={() => updateStat(stat, formData[stat as keyof typeof formData] as number + 1)}
-                    disabled={formData[stat as keyof typeof formData] >= 18}
+                    onClick={() => updateStat(stat, (formData[stat as keyof typeof formData] as number) + 1)}
+                    disabled={(formData[stat as keyof typeof formData] as number) >= 18}
                   >
                     +
                   </button>
