@@ -27,6 +27,9 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from client dist
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
 // Make io accessible to routes
 app.set('io', io);
 
@@ -167,6 +170,15 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`D&D 5e Server running on port ${PORT}`);
+});
+
+// SPA fallback - serve index.html for non-API routes  
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  } else {
+    next();
+  }
 });
 
 module.exports = { app, server, io };

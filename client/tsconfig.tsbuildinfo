@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/i18n.ts","./src/main.tsx","./src/components/AIGameMaster.tsx","./src/components/Auth.tsx","./src/components/Campaigns.tsx","./src/components/CharacterCreate.tsx","./src/components/CharacterList.tsx","./src/components/CharacterSheet.tsx","./src/components/Combat.tsx","./src/components/WorldMap.tsx","./src/store/gameStore.ts"],"version":"5.9.3"}
