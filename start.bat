@@ -21,11 +21,13 @@ if not exist "client\node_modules" (
 echo 🏗️ Building client...
 cd client && call npm run build && cd ..
 
-:: Start server
-echo 🚀 Starting server...
-start /b node server\index.js > server.log 2>&1
+:: Start server in background
+echo Starting server...
+start /b cmd /c "cd /d "%~dp0server" && node index.js"
 
-echo ✅ Server started on port 3001
+timeout /t 3 /nobreak > nul
+
+echo Server started on port 3001
 echo ✅ Client built to static files
 echo.
 echo 🎮 Open http://localhost:3001 in your browser!
