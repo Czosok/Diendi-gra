@@ -163,12 +163,12 @@ router.post('/', (req, res) => {
 
     const result = db.prepare(`
       INSERT INTO characters (
-        user_id, name, race, class, background, level,
+        user_id, campaign_id, name, race, class, background, level,
         strength, dexterity, constitution, intelligence, wisdom, charisma,
         hp, max_hp, ac
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
-      userId, name, race, charClass, background || null, level || 1,
+      userId, null, name, race, charClass, background || null, level || 1,
       adjustedStrength, adjustedDexterity, adjustedConstitution, 
       adjustedIntelligence, adjustedWisdom, adjustedCharisma,
       maxHP, maxHP, ac
