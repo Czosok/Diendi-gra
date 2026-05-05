@@ -42,7 +42,6 @@ export default function AIGameMaster() {
   const [mode, setMode] = useState<'gm' | 'npc'>('gm');
   const [selectedNpc, setSelectedNpc] = useState<number | null>(null);
   const [gmContext, setGmContext] = useState<GMContext | null>(null);
-  const [playerPos, setPlayerPos] = useState({ x: 16, y: 12 });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,10 +92,10 @@ export default function AIGameMaster() {
     setLoading(true);
 
     try {
-      let response: { gm?: string; response?: string };
+      let response: { gm?: string; response?: string; context?: GMContext };
       
       if (mode === 'gm') {
-        response = await apiCall<{ gm: string }>('/ai/gm', {
+        response = await apiCall<{ gm: string; context?: GMContext }>('/ai/gm', {
           method: 'POST',
           body: JSON.stringify({
             campaignId: currentCampaign,
@@ -243,10 +242,6 @@ export default function AIGameMaster() {
               <strong style={{ color: gmContext.activeEncounters ? '#ff6b6b' : 'inherit' }}>
                 {gmContext.activeEncounters || 0} active
               </strong>
-            </div>
-            <div>
-              <span style={{ color: 'var(--gb-light)' }}>📍 Position:</span>{' '}
-              <strong>({playerPos.x}, {playerPos.y})</strong>
             </div>
           </div>
         </div>
