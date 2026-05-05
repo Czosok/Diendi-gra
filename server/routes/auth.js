@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const db = require('../db/database');
 
 const router = express.Router();
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
     ).run(username, passwordHash, email || null);
 
     // Create session
-    const sessionToken = uuidv4();
+    const sessionToken = crypto.randomUUID();
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days
     
     db.prepare(
@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
     );
 
     // Create session
-    const sessionToken = uuidv4();
+    const sessionToken = crypto.randomUUID();
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
     
     db.prepare(
