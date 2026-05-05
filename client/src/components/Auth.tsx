@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore, apiCall } from '../store/gameStore';
 
 interface AuthResponse {
@@ -9,6 +10,7 @@ interface AuthResponse {
 
 export default function Auth() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,8 +36,46 @@ export default function Auth() {
       });
 
       setAuth(data.user, data.token);
+      navigate('/characters');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGuest = async () => {
+    // Guest login - create temporary guest user
+    const guestUsername = `guest_${Date.now()}`;
+    const guestPassword = 'guest_temp_123';
+    const guestEmail = `${guestUsername}@guest.local`;
+    
+    setLoading(true);
+    setError('');
+    
+    try {
+      // Try to register as guest (may fail if username exists, that's ok)
+      try {
+        await apiCall<AuthResponse>('/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({ username: guestUsername, password: guestPassword, email: guestEmail })
+        });
+      } catch (e) {
+        // Username exists, try login
+      }
+      
+      // Login as guest
+      const data = await apiCall<AuthResponse>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: guestUsername, password: guestPassword })
+      });
+      
+      setAuth(data.user, data.token);
+      navigate('/characters');
+    } catch (err) {
+      // If all fails, just use local guest mode
+      setAuth({ id: 0, username: 'Guest', email: 'guest@local' }, 'guest-token');
+      navigate('/characters');
     } finally {
       setLoading(false);
     }
@@ -101,6 +141,16 @@ export default function Auth() {
 
         <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
           {loading ? t('loading') : (isLogin ? t('auth.login') : t('auth.register'))}
+        </button>
+        
+        <button 
+          type="button" 
+          className="btn btn-secondary" 
+          style={{ width: '100%', marginTop: '10px' }}
+          onClick={handleGuest}
+          disabled={loading}
+        >
+          {t('auth.guest') || 'Play as Guest'}
         </button>
       </form>
     </div>
