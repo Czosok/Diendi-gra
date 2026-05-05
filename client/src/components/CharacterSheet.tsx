@@ -81,6 +81,27 @@ export default function CharacterSheet() {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'stats' | 'inventory' | 'spells'>('stats');
+  const [diceResult, setDiceResult] = useState<{ dice: string; rolls: number[]; total: number } | null>(null);
+  const [rolling, setRolling] = useState(false);
+
+  const rollDice = async (dice: string) => {
+    setRolling(true);
+    try {
+      const result = await apiCall<{ dice: string; rolls: number[]; total: number }>('/combat/roll', {
+        method: 'POST',
+        body: JSON.stringify({ dice })
+      });
+      setDiceResult(result);
+    } catch (err) {
+      // Fallback to client-side roll
+      const count = parseInt(dice.split('d')[0]) || 1;
+      const sides = parseInt(dice.split('d')[1]) || 20;
+      const rolls = Array.from({ length: count }, () => Math.floor(Math.random() * sides) + 1);
+      const total = rolls.reduce((a, b) => a + b, 0);
+      setDiceResult({ dice, rolls, total });
+    }
+    setRolling(false);
+  };
 
   useEffect(() => {
     if (id) {
@@ -172,6 +193,33 @@ export default function CharacterSheet() {
           <div className="stat-name">Proficiency</div>
           <div className="stat-value">+{stats.proficiencyBonus}</div>
         </div>
+      </div>
+
+      {/* Dice Roller */}
+      <div className="card" style={{ marginBottom: '20px' }}>
+        <div className="card-header">Dice Roller</div>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'].map((die) => (
+            <button
+              key={die}
+              className="btn"
+              onClick={() => rollDice(die)}
+              disabled={rolling}
+            >
+              {die}
+            </button>
+          ))}
+        </div>
+        {diceResult && (
+          <div style={{ marginTop: '15px', textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+              {diceResult.dice.toUpperCase()}: {diceResult.total}
+            </div>
+            <div style={{ color: 'var(--gb-light)', fontSize: '0.9rem' }}>
+              [{diceResult.rolls.join(', ')}]
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Tabs */}
