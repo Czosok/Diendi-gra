@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1c86db65-7aaa-4f80-a629-ac7479fc118d",
+    "name": "Grom the Brave",
+    "raceName": "Human",
+    "className": "Fighter",
+    "raceId": "human",
+    "classId": "fighter",
+    "level": 1,
+    "abilities": {
+      "str": 16,
+      "dex": 14,
+      "con": 15,
+      "int": 10,
+      "wis": 12,
+      "cha": 10
+    },
+    "hp": {
+      "current": 12,
+      "max": 12,
+      "temp": 0
+    },
+    "ac": 10,
+    "speed": 30,
+    "proficiency": [
+      "Athletics",
+      "Intimidation"
+    ],
+    "skills": [
+      "Athletics",
+      "Intimidation"
+    ],
+    "createdAt": "2026-05-05T13:23:09.219Z",
+    "updatedAt": "2026-05-05T13:23:09.219Z"
+  }
+]

@@ -1,0 +1,250 @@
+[
+  {
+    "id": "barbarian",
+    "name": "Barbarian",
+    "description": "A fierce warrior who relies on raw emotion and physical prowess in combat.",
+    "hitDie": "d12",
+    "primaryAbility": "str",
+    "savingThrows": ["str", "con"],
+    "armorProficiencies": ["light", "medium", "shields"],
+    "weaponProficiencies": ["simple", "martial"],
+    "skills": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Rage", "description": "Enter a battle frenzy granting damage resistance and bonus damage." },
+      { "level": 1, "name": "Unarmored Defense", "description": "AC equals 10 + Dex + Con while not wearing armor." }
+    ],
+    "subclasses": ["Berserker", "Totem Warrior"],
+    "spellCaster": false
+  },
+  {
+    "id": "bard",
+    "name": "Bard",
+    "description": "An inspiring magician whose words and music heal hearts and stir emotions.",
+    "hitDie": "d8",
+    "primaryAbility": "cha",
+    "savingThrows": ["dex", "cha"],
+    "armorProficiencies": ["light"],
+    "weaponProficiencies": ["simple", "handCrossbow", "longsword", "rapier", "shortsword"],
+    "skills": ["Choose 3 from: Deception, History, Insight, Intimidation, Investigation, Medicine, Nature, Perception, Performance, Persuasion, Religion, Sleight of Hand, Stealth"],
+    " CantripProgression": 2,
+    "spellsKnown": 4,
+    "features": [
+      { "level": 1, "name": "Bardic Inspiration", "description": "Grant inspiration dice to allies to add to rolls." },
+      { "level": 2, "name": "Jack of All Trades", "description": "Add half proficiency bonus to ability checks." }
+    ],
+    "subclasses": ["College of Lore", "College of Valor"],
+    "spellCaster": true,
+    "spellcastingAbility": "cha",
+    "spellList": "bard"
+  },
+  {
+    "id": "cleric",
+    "name": "Cleric",
+    "description": "A priestly champion who wields divine magic in service of a higher power.",
+    "hitDie": "d8",
+    "primaryAbility": "wis",
+    "savingThrows": ["wis", "cha"],
+    "armorProficiencies": ["light", "medium", "shields"],
+    "weaponProficiencies": ["simple"],
+    "skills": ["History, Insight, Medicine, Persuasion, Religion"],
+    " CantripProgression": 3,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Divine Domain", "description": "Choose a domain granting domain spells and features." },
+      { "level": 1, "name": "Turn Undead", "description": "Channel energy to turn undead creatures." }
+    ],
+    "subdomains": ["Knowledge", "Life", "Light", "Nature", "Tempest", "Trickery", "War"],
+    "spellCaster": true,
+    "spellcastingAbility": "wis",
+    "spellList": "cleric"
+  },
+  {
+    "id": "druid",
+    "name": "Druid",
+    "description": "A priest of the old faith, guardian of the wild places of the world.",
+    "hitDie": "d8",
+    "primaryAbility": "wis",
+    "savingThrows": ["int", "wis"],
+    "armorProficiencies": ["light", "medium", "shields (nonmetal)"],
+    "weaponProficiencies": ["clubs", "daggers", "darts", "javelins", "maces", "quarterstaffs", "scimitars", "sickles", "slings", "spears"],
+    "skills": ["Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Persuasion, Religion, Survival"],
+    " CantripProgression": 2,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Druidic", "description": "Know Druidic language and cannot be affected by wild shape confusion." },
+      { "level": 2, "name": "Wild Shape", "description": "Transform into a beast form." }
+    ],
+    "subclasses": ["Circle of the Land", "Circle of the Moon"],
+    "spellCaster": true,
+    "spellcastingAbility": "wis",
+    "spellList": "druid"
+  },
+  {
+    "id": "fighter",
+    "name": "Fighter",
+    "description": "A master of martial combat, skilled with a wide variety of weapons and armor.",
+    "hitDie": "d10",
+    "primaryAbility": "str",
+    "savingThrows": ["str", "con"],
+    "armorProficiencies": ["light", "medium", "heavy", "shields"],
+    "weaponProficiencies": ["simple", "martial"],
+    "skills": ["Acrobatics, Athletics, History, Insight, Intimidation, Perception, Survival"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Fighting Style", "description": "Choose a combat style granting a special benefit." },
+      { "level": 2, "name": "Action Surge", "description": "Take an additional action on your turn." }
+    ],
+    "subclasses": ["Champion", "Battle Master", "Eldritch Knight"],
+    "spellCaster": false,
+    "spellCasterAlternate": "Eldritch Knight (wizard spells)"
+  },
+  {
+    "id": "monk",
+    "name": "Monk",
+    "description": "A master of martial arts, harnessing the power of body and mind.",
+    "hitDie": "d8",
+    "primaryAbility": "dex",
+    "savingThrows": ["str", "dex"],
+    "armorProficiencies": [],
+    "weaponProficiencies": ["simple", "shortsword"],
+    "skills": ["Acrobatics, Athletics, History, Insight, Medicine, Perception, Stealth, Religion"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Unarmored Defense", "description": "AC equals 10 + Dex + Wis while unarmored." },
+      { "level": 2, "name": "Ki", "description": "Spend ki points to supercharge abilities." },
+      { "level": 3, "name": "Flurry of Blows", "description": "Make two extra attacks after a martial arts attack." }
+    ],
+    "subclasses": ["Way of the Open Hand", "Way of Shadow", "Way of the Four Elements"],
+    "spellCaster": false
+  },
+  {
+    "id": "paladin",
+    "name": "Paladin",
+    "description": "A holy warrior bound to a sacred oath, dedicated to vanquishing evil.",
+    "hitDie": "d10",
+    "primaryAbility": "str",
+    "savingThrows": ["wis", "cha"],
+    "armorProficiencies": ["light", "medium", "heavy", "shields"],
+    "weaponProficiencies": ["simple", "martial"],
+    "skills": ["Athletics, Insight, Intimidation, Medicine, Persuasion, Religion"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Divine Sense", "description": "Detect celestial, fiendish, or undead presence." },
+      { "level": 2, "name": "Lay on Hands", "description": "Heal with a touch equal to paladin level × 5." }
+    ],
+    "subclasses": ["Oath of Devotion", "Oath of the Ancients", "Oath of Vengeance"],
+    "spellCaster": true,
+    "spellcastingAbility": "cha",
+    "spellList": "paladin"
+  },
+  {
+    "id": "ranger",
+    "name": "Ranger",
+    "description": "A master of wilderness survival and ranged combat, hunting the enemies of civilization.",
+    "hitDie": "d10",
+    "primaryAbility": "dex",
+    "savingThrows": ["str", "dex"],
+    "armorProficiencies": ["light", "medium", "shields"],
+    "weaponProficiencies": ["simple", "martial"],
+    "skills": ["Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, Survival"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Favored Enemy", "description": "Study a specific enemy type for bonuses against them." },
+      { "level": 1, "name": "Natural Explorer", "description": "Travel through favored terrain without slowing." }
+    ],
+    "subclasses": ["Hunter", "Beast Master"],
+    "spellCaster": true,
+    "spellcastingAbility": "wis",
+    "spellList": "ranger"
+  },
+  {
+    "id": "rogue",
+    "name": "Rogue",
+    "description": "A slippery scoundrel who uses stealth and cunning to achieve their goals.",
+    "hitDie": "d8",
+    "primaryAbility": "dex",
+    "savingThrows": ["dex", "int"],
+    "armorProficiencies": ["light"],
+    "weaponProficiencies": ["simple", "handCrossbow", "longsword", "rapier", "shortsword"],
+    "skills": ["Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, Stealth"],
+    " CantripProgression": 0,
+    "spellsKnown": 0,
+    "features": [
+      { "level": 1, "name": "Sneak Attack", "description": "Deal extra damage when you have advantage or an ally is adjacent." },
+      { "level": 2, "name": "Cunning Action", "description": "Take a bonus action to Dash, Disengage, or Hide." }
+    ],
+    "subclasses": ["Thief", "Assassin", "Arcane Trickster"],
+    "spellCaster": false,
+    "spellCasterAlternate": "Arcane Trickster (wizard spells)"
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "description": "A caster who wields innate magic drawn from their bloodline.",
+    "hitDie": "d6",
+    "primaryAbility": "cha",
+    "savingThrows": ["con", "cha"],
+    "armorProficiencies": [],
+    "weaponProficiencies": ["daggers", "darts", "quarterstaffs", "slings", "light crossbows"],
+    "skills": ["Arcana, Deception, Insight, Intimidation, Persuasion, Religion"],
+    " CantripProgression": 4,
+    "spellsKnown": 2,
+    "features": [
+      { "level": 1, "name": "Sorcery Points", "description": "Spend points to modify spells with metamagic." },
+      { "level": 1, "name": "Meta magic", "description": "Twin or extend spells using sorcery points." }
+    ],
+    "subclasses": ["Draconic Bloodline", "Wild Magic", "Storm Sorcery"],
+    "spellCaster": true,
+    "spellcastingAbility": "cha",
+    "spellList": "sorcerer"
+  },
+  {
+    "id": "warlock",
+    "name": "Warlock",
+    "description": "A wielder of magic granted by a pact with an otherworldly patron.",
+    "hitDie": "d8",
+    "primaryAbility": "cha",
+    "savingThrows": ["wis", "cha"],
+    "armorProficiencies": ["light"],
+    "weaponProficiencies": ["simple"],
+    "skills": ["Arcana, Deception, History, Intimidation, Investigation, Nature, Religion"],
+    " CantripProgression": 2,
+    "spellsKnown": 2,
+    "features": [
+      { "level": 1, "name": "Pact Magic", "description": "Cast spells using warlock spell slots." },
+      { "level": 2, "name": "Eldritch Invocations", "description": "Learn magical eldritch invocations." }
+    ],
+    "subclasses": ["Archfey", "Great Old One", "Fiend", "Celestial"],
+    "spellCaster": true,
+    "spellcastingAbility": "cha",
+    "spellList": "warlock"
+  },
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "description": "A scholarly arcane spellcaster who masters magic through study.",
+    "hitDie": "d6",
+    "primaryAbility": "int",
+    "savingThrows": ["int", "wis"],
+    "armorProficiencies": [],
+    "weaponProficiencies": ["daggers", "darts", "quarterstaffs", "slings", "light crossbows"],
+    "skills": ["Arcana, History, Insight, Investigation, Medicine, Religion"],
+    " CantripProgression": 3,
+    "spellsKnown": 0,
+    "spellbook": true,
+    "features": [
+      { "level": 1, "name": "Arcane Recovery", "description": "Recover spell slots on a short rest." },
+      { "level": 2, "name": "Arcane Tradition", "description": "Choose a school granting special features." }
+    ],
+    "subclasses": ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"],
+    "spellCaster": true,
+    "spellcastingAbility": "int",
+    "spellList": "wizard"
+  }
+]

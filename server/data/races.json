@@ -1,0 +1,196 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "description": "Humans are the most adaptable and ambitious people among the common races. They are diverse in size, skin color, and hair color.",
+    "speed": 30,
+    "abilityBonuses": { "str": 1, "dex": 1, "con": 1, "int": 1, "wis": 1, "cha": 1 },
+    "traits": ["Versatile", "Extra Language"],
+    "languages": ["Common"],
+    "age": "Humans reach adulthood in their late teens and live less than a century.",
+    "size": "Medium",
+    "subraces": [
+      {
+        "id": "variant-human",
+        "name": "Variant Human",
+        "description": "Variant humans are more adaptable than their standard counterparts.",
+        "abilityBonuses": { "str": 1, "dex": 1, "con": 1, "int": 1, "wis": 1, "cha": 1 },
+        "traits": ["Skill Versatility", "Extra Language"],
+        "languages": ["Common", "One extra language of your choice"]
+      }
+    ]
+  },
+  {
+    "id": "elf",
+    "name": "Elf",
+    "description": "Elves are a magical people of otherworldly grace, living in the world but not entirely of it.",
+    "speed": 30,
+    "abilityBonuses": { "dex": 2, "int": 1 },
+    "traits": ["Keen Senses", "Fey Ancestry", "Trance"],
+    "languages": ["Common", "Elvish"],
+    "age": "Elfs reach adulthood at about 100 and can live to be 750 years old.",
+    "size": "Medium",
+    "subraces": [
+      {
+        "id": "high-elf",
+        "name": "High Elf",
+        "description": "High elves have keen minds and a mastery of at least the basics of magic.",
+        "abilityBonuses": { "dex": 2, "int": 1 },
+        "traits": ["Cantrip", "Extra Language", "Elf Weapon Training"],
+        "languages": ["Common", "Elvish", "One extra language of your choice"]
+      },
+      {
+        "id": "wood-elf",
+        "name": "Wood Elf",
+        "description": "Wood elves are fleet of foot and stealthy.",
+        "speed": 35,
+        "abilityBonuses": { "dex": 2, "wis": 1 },
+        "traits": ["Elf Weapon Training", "Fleet of Foot", "Mask of the Wild"],
+        "languages": ["Common", "Elvish"]
+      },
+      {
+        "id": "drow",
+        "name": "Drow",
+        "description": "Drow are exiled underground, living in darkness and crafting evil magic.",
+        "abilityBonuses": { "dex": 2, "cha": 1 },
+        "traits": ["Superior Darkvision", "Sunlight Sensitivity", "Drow Magic"],
+        "languages": ["Common", "Elvish"]
+      }
+    ]
+  },
+  {
+    "id": "dwarf",
+    "name": "Dwarf",
+    "description": "Dwarves are known as the stalwart defenders of civilization, strong and resilient.",
+    "speed": 25,
+    "abilityBonuses": { "con": 2, "wis": 1 },
+    "traits": ["Dwarven Resilience", "Stonecunning", "Dwarven Combat Training"],
+    "languages": ["Common", "Dwarvish"],
+    "age": "Dwarves mature at the same rate as humans but are considered young until they are 50.",
+    "size": "Medium",
+    "subraces": [
+      {
+        "id": "mountain-dwarf",
+        "name": "Mountain Dwarf",
+        "description": "Mountain dwarves are trained as skilled warriors.",
+        "abilityBonuses": { "str": 2, "con": 1 },
+        "traits": ["Dwarven Armor Training"],
+        "languages": ["Common", "Dwarvish"]
+      },
+      {
+        "id": "hill-dwarf",
+        "name": "Hill Dwarf",
+        "description": "Hill dwarves have keen senses and deep intuition.",
+        "abilityBonuses": { "con": 1, "wis": 1 },
+        "traits": ["Dwarven Armor Training", "Dwarven Toughness"],
+        "languages": ["Common", "Dwarvish"]
+      }
+    ]
+  },
+  {
+    "id": "halfling",
+    "name": "Halfling",
+    "description": "Halflings are small folk known for their luck and stealth.",
+    "speed": 25,
+    "abilityBonuses": { "dex": 2, "cha": 1 },
+    "traits": ["Lucky", "Brave", "Halfling Nimbleness"],
+    "languages": ["Common", "Halfling"],
+    "age": "Halflings reach adulthood at 20 and live to be around 150.",
+    "size": "Small",
+    "subraces": [
+      {
+        "id": "lightfoot-halfling",
+        "name": "Lightfoot Halfling",
+        "description": "Lightfoot halflings can easily hide in shadows.",
+        "abilityBonuses": { "dex": 2, "cha": 1 },
+        "traits": ["Naturally Stealthy"],
+        "languages": ["Common", "Halfling"]
+      },
+      {
+        "id": "stout-halfling",
+        "name": "Stout Halfling",
+        "description": "Stout halflings are hardier than most and resistant to poison.",
+        "abilityBonuses": { "dex": 1, "con": 1 },
+        "traits": ["Stout Resilience"],
+        "languages": ["Common", "Halfling"]
+      }
+    ]
+  },
+  {
+    "id": "dragonborn",
+    "name": "Dragonborn",
+    "description": "Dragonborn resemble other humanoid races in height, but their scales and breath weapons set them apart.",
+    "speed": 30,
+    "abilityBonuses": { "str": 2, "cha": 1 },
+    "traits": ["Draconic Ancestry", "Breath Weapon", "Damage Resistance"],
+    "languages": ["Common", "Draconic"],
+    "age": "Dragonborn reach adulthood at 15 and live to be around 80.",
+    "size": "Medium",
+    "subraces": []
+  },
+  {
+    "id": "gnome",
+    "name": "Gnome",
+    "description": "Gnomes are small folk known for their curiosity and magical aptitude.",
+    "speed": 25,
+    "abilityBonuses": { "int": 2, "dex": 1 },
+    "traits": ["Gnome Cunning"],
+    "languages": ["Common", "Gnomish"],
+    "age": "Gnomes reach adulthood at 40 and can live to be over 400.",
+    "size": "Small",
+    "subraces": [
+      {
+        "id": "forest-gnome",
+        "name": "Forest Gnome",
+        "description": "Forest gnomes have a natural affinity for illusion magic.",
+        "abilityBonuses": { "int": 1, "dex": 1 },
+        "traits": ["Natural Illusionist", "Speak with Small Beasts"],
+        "languages": ["Common", "Gnomish"]
+      },
+      {
+        "id": "rock-gnome",
+        "name": "Rock Gnome",
+        "description": "Rock gnomes are known as tinkers and inventors.",
+        "abilityBonuses": { "con": 1, "int": 1 },
+        "traits": ["Tinker"],
+        "languages": ["Common", "Gnomish"]
+      }
+    ]
+  },
+  {
+    "id": "half-orc",
+    "name": "Half-Orc",
+    "description": "Half-orcs combine the best traits of both their parent races, tempered by their harsh upbringing.",
+    "speed": 30,
+    "abilityBonuses": { "str": 2, "con": 1, "wis": 0, "cha": 0 },
+    "traits": ["Menacing", "Relentless Endurance", "Savage Attacks"],
+    "languages": ["Common", "Orc"],
+    "age": "Half-orcs reach adulthood at 14 and live to be around 50.",
+    "size": "Medium",
+    "subraces": []
+  },
+  {
+    "id": "tiefling",
+    "name": "Tiefling",
+    "description": "Tieflings are the descendents of fiendish bloodlines, marked by their infernal heritage.",
+    "speed": 30,
+    "abilityBonuses": { "int": 1, "cha": 2 },
+    "traits": ["Hellish Resistance", "Infernal Legacy"],
+    "languages": ["Common", "Infernal"],
+    "age": "Tieflings reach adulthood at 18 and live to be around 100.",
+    "size": "Medium",
+    "subraces": []
+  },
+  {
+    "id": "half-elf",
+    "name": "Half-Elf",
+    "description": "Half-elves combine the best qualities of both parent races, with versatility in many fields.",
+    "speed": 30,
+    "abilityBonuses": { "cha": 2, "dex": 1, "int": 0, "wis": 0 },
+    "traits": ["Fey Ancestry", "Skill Versatility", "Extra Language"],
+    "languages": ["Common", "Elvish", "One extra language of your choice"],
+    "age": "Half-elves reach adulthood at 20 and live to be around 180.",
+    "size": "Medium",
+    "subraces": []
+  }
+]

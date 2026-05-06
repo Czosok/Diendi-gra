@@ -1,0 +1,114 @@
+[
+  {
+    "id": "acolyte",
+    "name": "Acolyte",
+    "description": "You have spent your life in service to a temple or shrine, learning religious traditions.",
+    "skillProficiencies": ["Insight", "Religion"],
+    "languages": 1,
+    "equipment": ["A prayer book or prayer wheel", "5 sticks of incense", "Vestments", "Common clothes", "15 gp"],
+    "feature": "Shelter of the Faithful - You and your companions can receive healing at temples."
+  },
+  {
+    "id": "charlatan",
+    "name": "Charlatan",
+    "description": "You have learned to escape detection through deception and misdirection.",
+    "skillProficiencies": ["Deception", "Sleight of Hand"],
+    "languages": 0,
+    "equipment": ["A set of fine clothes", "Disguise kit", "Ten weighted dice", "A deck of marked cards", "15 gp"],
+    "feature": "False Identity - You have a second identity for avoiding detection."
+  },
+  {
+    "id": "criminal",
+    "name": "Criminal",
+    "description": "You have experience with crime and know how to evade the law.",
+    "skillProficiencies": ["Deception", "Stealth"],
+    "tools": ["Gaming set"],
+    "equipment": ["Crowbar", "Dark common clothes with hood", "15 gp"],
+    "feature": "Criminal Contact - You have a contact in the criminal underworld."
+  },
+  {
+    "id": "entertainer",
+    "name": "Entertainer",
+    "description": "You perform for audiences that love your art and can inspire or delight them.",
+    "skillProficiencies": ["Acrobatics", "Performance"],
+    "tools": ["Disguise kit"],
+    "equipment": ["Musical instrument", "Costume", "15 gp"],
+    "feature": "By Popular Demand - You can secure free lodging in return for performances."
+  },
+  {
+    "id": "folk-hero",
+    "name": "Folk Hero",
+    "description": "You come from a humble background and rose to protect common folk from tyrants.",
+    "skillProficiencies": ["Animal Handling", "Survival"],
+    "tools": ["Artisan's tool"],
+    "equipment": ["Artisan's tools", "Shovel", "Iron pot", "Common clothes", "10 gp"],
+    "feature": "Rustic Hospitality - You can find shelter and aid from common folk."
+  },
+  {
+    "id": "guild-artisan",
+    "name": "Guild Artisan",
+    "description": "You are a member of a guild of artisans, skilled in a particular craft.",
+    "skillProficiencies": ["Insight", "Persuasion"],
+    "languages": 1,
+    "tools": ["Artisan's tool"],
+    "equipment": ["Artisan's tools", "Letter of introduction from your guild", "Common clothes", "15 gp"],
+    "feature": "Guild Membership - You have connections in the guild and can get resources."
+  },
+  {
+    "id": "hermit",
+    "name": "Hermit",
+    "description": "You lived in seclusion for a time, devoting yourself to contemplation.",
+    "skillProficiencies": ["Medicine", "Religion"],
+    "languages": 1,
+    "tools": ["Herbalism kit"],
+    "equipment": ["Herbalism kit", "Winter blanket", "Common clothes", "5 gp"],
+    "feature": "Discovery - You made a discovery of importance during your seclusion."
+  },
+  {
+    "id": "noble",
+    "name": "Noble",
+    "description": "You were born into a wealthy family with political influence.",
+    "skillProficiencies": ["History", "Persuasion"],
+    "languages": 1,
+    "tools": ["Gaming set"],
+    "equipment": ["Fine clothes", "Signet ring", "Scroll of pedigree", "25 gp"],
+    "feature": "Position of Privilege - You are treated with deference in social situations."
+  },
+  {
+    "id": "outlander",
+    "name": "Outlander",
+    "description": "You grew up in the wilds, far from civilization.",
+    "skillProficiencies": ["Athletics", "Survival"],
+    "languages": 1,
+    "tools": ["Musical instrument"],
+    "equipment": ["Traveler's clothes", "Hunting trap", "Trophy from a slain animal", "10 gp"],
+    "feature": "Wanderer - You can navigate and find food in the wilderness."
+  },
+  {
+    "id": "sage",
+    "name": "Sage",
+    "description": "You spent your life studying arcane knowledge in a great library.",
+    "skillProficiencies": ["Arcana", "History"],
+    "languages": 2,
+    "equipment": ["Scholar's robes", "Ink, quill, and paper", "Letter of introduction from a scholar", "10 gp"],
+    "feature": "Researcher - You know where to find information in academic circles."
+  },
+  {
+    "id": "sailor",
+    "name": "Sailor",
+    "description": "You have sailed on the seas and know navigation and maritime life.",
+    "skillProficiencies": ["Athletics", "Perception"],
+    "tools": ["Navigator's tools"],
+    "equipment": ["Sap", "50 feet of silk rope", "Lucky charm", "Common clothes", "10 gp"],
+    "feature": "Windcatcher's Memory - You can predict weather changes at sea."
+  },
+  {
+    "id": "soldier",
+    "name": "Soldier",
+    "description": "You served in a military unit and know warfare and discipline.",
+    "skillProficiencies": ["Athletics", "Intimidation"],
+    "tools": ["Gaming set", "Vehicle (land or water)"],
+    "equipment": ["Insignia of rank", "Gaming set", "Common clothes", "10 gp"],
+    "feature": "Military Rank - You have influence with military organizations."
+  }
+]
